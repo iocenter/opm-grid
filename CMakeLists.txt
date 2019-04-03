@@ -22,6 +22,14 @@ cmake_minimum_required (VERSION 2.8)
 # we cannot generate dune.module since it is read by dunecontrol before
 # the build starts, so it makes sense to keep the data there then.
 
+# Custom ERT/ECL -> Using Equinor's libecl (bleeding edge)
+set(EQUINOR_ECL_DIR ${HOME}/git/IOC/libecl)
+set(ecl_DIR "${EQUINOR_ECL_DIR}/cmake-build-debug")
+set(CMAKE_INSTALL_PREFIX "${EQUINOR_ECL_DIR}/cmake-build-debug/lib")
+
+set(USE_MPI OFF)
+message(STATUS "USE_MPI: ${USE_MPI}")
+
 option(SIBLING_SEARCH "Search for other modules in sibling directories?" ON)
 
 if(SIBLING_SEARCH AND NOT opm-common_DIR)
@@ -106,3 +114,6 @@ endmacro (tests_hook)
 
 # all setup common to the OPM library modules is done here
 include (OpmLibMain)
+
+set(USE_MPI OFF)
+message(STATUS "USE_MPI: ${USE_MPI}")
